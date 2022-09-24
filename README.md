@@ -29,7 +29,7 @@ npm run start
 - [x] Project Setup and Dockerize Application
 - [x] Entities
 - [x] Repositories and UseCases Contract
-- [] DataSource and Payment Gateway Contract
+- [x] DataSource and Payment Gateway Contract
 - [] Datasource test and Implementation
 - [] Repositories Test and Implementation
 - [] UseCases Test and Implementation

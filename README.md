@@ -28,11 +28,13 @@ npm run start
 - [x] README Design Document
 - [x] Project Setup and Dockerize Application
 - [x] Entities
-- [] Repositories and UseCases Contract
+- [x] Repositories and UseCases Contract
+- [] DataSource and Payment Gateway Contract
+- [] Datasource test and Implementation
 - [] Repositories Test and Implementation
 - [] UseCases Test and Implementation
+- [] Payment Gateway Test and Implementation
 - [] Router Test and Implementation
-- [] Datasource test and Implementation
 - [] Bootstrap Application
 - [] Add Extra validations where neccessary
 - [] Re-run all tests and fix tests

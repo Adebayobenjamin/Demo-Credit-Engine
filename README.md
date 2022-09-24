@@ -27,7 +27,7 @@ npm run start
 - [x] Project Architecture Design
 - [x] README Design Document
 - [x] Project Setup and Dockerize Application
-- [] Entities
+- [x] Entities
 - [] Repositories and UseCases Contract
 - [] Repositories Test and Implementation
 - [] UseCases Test and Implementation

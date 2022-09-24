@@ -1,0 +1,23 @@
+version: '3.2'
+
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: thtxyyx
+      MYSQL_DATABASE: democredit
+      MYSQL_USER: democredit
+  server:
+    build: .
+    # depends_on:
+    #   - db
+    environment:
+      - PORT=9898
+      
+    ports:
+      - 9898:9898
+
+volumes:
+    db:
+      driver: local

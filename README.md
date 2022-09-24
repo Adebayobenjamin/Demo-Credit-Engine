@@ -1,4 +1,4 @@
-# demo-credit-engine
+# Demo-Credit-Engine
 A Wallet Service with Nodejs/Typescript
 
 ## How to start the server
@@ -26,7 +26,7 @@ npm run start
 - [x] E-R Design
 - [x] Project Architecture Design
 - [x] README Design Document
-- [] Project Setup and Dockerize Application
+- [x] Project Setup and Dockerize Application
 - [] Entities
 - [] Repositories and UseCases Contract
 - [] Repositories Test and Implementation

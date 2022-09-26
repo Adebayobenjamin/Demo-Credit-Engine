@@ -2,30 +2,27 @@ import { Errors } from "../../../core/common/errors";
 import { ResponseError } from "../../../core/common/Response";
 import { Wallet } from "../../entities/wallet.entity";
 import { IWalletRepository } from "../../interfaces/repositories/wallet.repository";
-import { IFundWalletUsecase } from "../../interfaces/useCases/wallet/fundWallet.useCase";
+import {
+  IInitiateFundingUsecase,
+  PaymentIntailizationResponse,
+} from "../../interfaces/useCases/wallet/initiateFunding.useCase";
 
-export class FundWalletUseCase implements IFundWalletUsecase {
+export class InitiateFundingUseCase implements IInitiateFundingUsecase {
   walletRepository: IWalletRepository;
   constructor(walletRepository: IWalletRepository) {
     this.walletRepository = walletRepository;
   }
 
-  async execute(amount: number, userId: string): Promise<Wallet> {
+  async execute(
+    amount: number,
+    userId: string
+  ): Promise<PaymentIntailizationResponse> {
     const userWallet = await this.walletRepository.findByUserId(userId);
     if (!userWallet)
       throw new ResponseError({
         statusCode: 400,
         message: Errors.WALLET_NOT_FOUND,
       });
-
-    userWallet.balance += amount;
-    const update = await this.walletRepository.update(userWallet);
-    if (!update)
-      throw new ResponseError({
-        statusCode: 400,
-        message: Errors.SOMETHING_WENT_WRONG,
-      });
-
-    return userWallet;
+    return this.walletRepository.initiateFunding(amount, userWallet);
   }
 }

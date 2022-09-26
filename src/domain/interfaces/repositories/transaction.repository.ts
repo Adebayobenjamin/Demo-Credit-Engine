@@ -5,7 +5,7 @@ import { Transaction } from "../../entities/transaction.entity";
  * 
  * This specifies what the transaction repository can do
  */
-export interface ITransaction {
-  save(transaction: Transaction): Promise<Transaction>;
-  getByUserId(userId: string): Promise<Transaction>;
+export interface ITransactionRepository {
+  create(transaction: Transaction): Promise<Transaction>;
+  findAllByUserId(userId: string): Promise<Transaction[]>;
 }

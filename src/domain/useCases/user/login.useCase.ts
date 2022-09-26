@@ -1,0 +1,28 @@
+import { Errors } from "../../../core/common/errors";
+import { ResponseError } from "../../../core/common/Response";
+import { CryptBox } from "../../../core/utils/cryptBox";
+import { User } from "../../entities/user.entity";
+import { IUserRepository } from "../../interfaces/repositories/user.repository";
+import { ILoginUsecase } from "../../interfaces/useCases/user/login.useCase";
+
+export class LoginUseCase implements ILoginUsecase {
+  userRepository: IUserRepository;
+  constructor(userRepository: IUserRepository) {
+    this.userRepository = userRepository;
+  }
+
+  async execute(email: string, password: string): Promise<User> {
+    const user = await this.userRepository.login(email, password);
+    if(!user) throw new ResponseError({
+        statusCode: 401,
+        message: Errors.INVALID_CREDENTIALS,
+    })
+    // const isSamePassword = await this.cryptBox.verifyHash(user.password, password);
+    // if(!isSamePassword) throw new ResponseError({
+    //     statusCode: 401,
+    //     message: "incorrect password",
+    // })
+    return user;
+  }
+  
+}

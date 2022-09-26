@@ -3,17 +3,17 @@ import { Wallet } from "./wallet.entity";
 
 export interface Transaction {
   id?: string;
-  amount: string;
+  amount: number;
   transactionType: string;
-  sender: User;
+  sender?: User;
   reciever: User;
   paymentGateway: string;
   currency: string;
   wallet: Wallet;
-  reference_code: string;
+  reference_code?: string;
 }
 
-enum TransactionType {
+export enum TransactionType {
   DEPOSIT = "deposit",
   WITHDRAWAL = "withdrawal",
   TRANSFER = "transfer",

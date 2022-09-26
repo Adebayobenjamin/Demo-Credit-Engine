@@ -30,9 +30,9 @@ npm run start
 - [x] Entities
 - [x] Repositories and UseCases Contract
 - [x] DataSource and Payment Gateway Contract
-- [] Datasource test and Implementation
+- [x] UseCases Test and Implementation
 - [] Repositories Test and Implementation
-- [] UseCases Test and Implementation
+- [] Datasource test and Implementation
 - [] Payment Gateway Test and Implementation
 - [] Router Test and Implementation
 - [] Bootstrap Application

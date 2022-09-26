@@ -5,5 +5,5 @@ import { Wallet } from "../../../entities/wallet.entity";
  * This specifies what the withdraw usecase can do
  */
 export interface IWithdrawUsecase{
-    execute(amount: number, wallet: Wallet): Promise<Wallet>
+    execute(amount: number, userId: string): Promise<Wallet>
 }

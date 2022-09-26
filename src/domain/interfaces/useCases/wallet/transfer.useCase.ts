@@ -1,4 +1,4 @@
-import { Wallet } from "../../../entities/wallet.entity";
+import { User } from "../../../entities/user.entity";
 
 /***
  * Transfer UseCase Contract
@@ -6,5 +6,5 @@ import { Wallet } from "../../../entities/wallet.entity";
  * This specifies what the Transfer usecase can do
  */
 export interface ITransferUsecase{
-    execute(amount: number, senderWallet: Wallet, recieverWallet: Wallet): Promise<boolean>
+    execute(amount: number, sender: User, recieverAccountNo: string): Promise<boolean>
 }

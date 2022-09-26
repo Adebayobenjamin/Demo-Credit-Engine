@@ -5,6 +5,6 @@ import { Transaction } from "../../../entities/transaction.entity";
  * 
  * This specifies what the createTransaction usecase can do
  */
-export interface ICreateTransactionUsecase {
+export interface ICreateTransactionUseCase {
   execute(transaction: Transaction): Promise<Transaction>;
 }

@@ -2,7 +2,7 @@ import { User } from "./user.entity";
 
 export interface Wallet {
     id?: string;
-    accountNo: string;
-    balance: number;
+    accountNo?: string;
+    balance?: number;
     user: User
 }

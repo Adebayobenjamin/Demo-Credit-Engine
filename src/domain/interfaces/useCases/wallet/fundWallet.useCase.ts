@@ -6,5 +6,5 @@ import { Wallet } from "../../../entities/wallet.entity";
  * This specifies what the FundWallet usecase can do
  */
 export interface IFundWalletUsecase {
-  execute(amount: string, wallet: Wallet): Promise<Wallet>;
+  execute(amount: number, userId: string): Promise<Wallet>;
 }

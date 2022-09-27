@@ -11,7 +11,7 @@ import { Chance } from "chance";
 import { Errors } from "../../../../src/core/common/errors";
 import { Wallet } from "../../../../src/domain/entities/wallet.entity";
 const chance = new Chance();
-describe("Create Transaction UseCase", () => {
+describe("GetTransactionsByUserId UseCase", () => {
   class MockTransactionRepository implements ITransactionRepository {
     create(transaction: Transaction): Promise<Transaction> {
       throw new Error("Method not implemented.");

@@ -8,7 +8,7 @@ import { PaymentIntailizationResponse } from "../useCases/wallet/initiateFunding
  */
 export interface IWalletRepository {
   createWallet(wallet: Wallet): Promise<Wallet>;
-  update(wallet: Wallet): Promise<boolean>;
+  update(wallet: Wallet): Promise<Wallet| null>;
   findBy(query: WalletQuery): Promise<Wallet | null>;
   findById(id: string):  Promise<Wallet | null>;
   findByUserId(userId: string): Promise<Wallet | null>;

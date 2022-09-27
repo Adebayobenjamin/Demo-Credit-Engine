@@ -8,7 +8,7 @@ import { CryptBox } from "../../../../src/core/utils/cryptBox";
 import { ILoginUsecase } from "../../../../src/domain/interfaces/useCases/user/login.useCase";
 import { Errors } from "../../../../src/core/common/errors";
 
-describe("User Login Test ", () => {
+describe("Login UseCase", () => {
   class MockUserRepository implements IUserRepository {
     login(email: string, password: string): Promise<User | null> {
       throw new Error("Method not implemented.");

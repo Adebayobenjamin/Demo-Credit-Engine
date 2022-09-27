@@ -31,7 +31,7 @@ npm run start
 - [x] Repositories and UseCases Contract
 - [x] DataSource and Payment Gateway Contract
 - [x] UseCases Test and Implementation
-- [] Repositories Test and Implementation
+- [x] Repositories Test and Implementation
 - [] Datasource test and Implementation
 - [] Payment Gateway Test and Implementation
 - [] Router Test and Implementation

@@ -9,7 +9,7 @@ import { PaymentIntailizationResponse } from "../../../../src/domain/interfaces/
 import { Errors } from "../../../../src/core/common/errors";
 const chance = new Chance();
 
-describe("Transfer Test ", () => {
+describe("Transfer UseCase ", () => {
   class MockWalletRepository implements IWalletRepository {
     findById(id: string): Promise<Wallet | null> {
       throw new Error("Method not implemented.");
@@ -23,7 +23,7 @@ describe("Transfer Test ", () => {
     findByUserId(userId: string): Promise<Wallet> {
       throw new Error("Method not implemented.");
     }
-    update(wallet: Wallet): Promise<boolean> {
+    update(wallet: Wallet): Promise<Wallet> {
       throw new Error("Method not implemented.");
     }
     createWallet(wallet: Wallet): Promise<Wallet> {
@@ -79,7 +79,7 @@ describe("Transfer Test ", () => {
       .mockImplementation(() => Promise.resolve(tRecieverWallet));
     jest
       .spyOn(mockWalletRepository, "update")
-      .mockImplementation(() => Promise.resolve(true));
+      .mockImplementation(() => Promise.resolve(tRecieverWallet));
     // act
     const result = await transferUseCase.execute(
       tPayload.amount,

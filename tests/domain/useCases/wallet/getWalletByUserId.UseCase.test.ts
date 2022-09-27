@@ -12,12 +12,12 @@ import { User } from "../../../../src/domain/entities/user.entity";
 import { Errors } from "../../../../src/core/common/errors";
 const chance = new Chance();
 
-describe("GetWalletByUserId UseCase Test", () => {
+describe("GetWalletByUserId UseCase", () => {
   class MockWalletRepository implements IWalletRepository {
     createWallet(wallet: Wallet): Promise<Wallet> {
       throw new Error("Method not implemented.");
     }
-    update(wallet: Wallet): Promise<boolean> {
+    update(wallet: Wallet): Promise<Wallet> {
       throw new Error("Method not implemented.");
     }
     findBy(query: WalletQuery): Promise<Wallet | null> {

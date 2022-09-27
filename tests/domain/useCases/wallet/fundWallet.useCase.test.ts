@@ -14,7 +14,7 @@ import { IFundWalletUsecase } from "../../../../src/domain/interfaces/useCases/w
 import { Errors } from "../../../../src/core/common/errors";
 const chance = new Chance();
 
-describe("Fund wallet Test ", () => {
+describe("FundWallet UseCase ", () => {
   class MockWalletRepository implements IWalletRepository {
     findById(id: string): Promise<Wallet | null> {
       throw new Error("Method not implemented.");
@@ -28,7 +28,7 @@ describe("Fund wallet Test ", () => {
     createWallet(wallet: Wallet): Promise<Wallet> {
       throw new Error("Method not implemented.");
     }
-    update(wallet: Wallet): Promise<boolean> {
+    update(wallet: Wallet): Promise<Wallet> {
       throw new Error("Method not implemented.");
     }
     findBy(query: WalletQuery): Promise<Wallet | null> {
@@ -69,7 +69,7 @@ describe("Fund wallet Test ", () => {
       .mockImplementation(() => Promise.resolve(tUserWallet));
     jest
       .spyOn(mockWalletRepository, "update")
-      .mockImplementation(() => Promise.resolve(true));
+      .mockImplementation(() => Promise.resolve(tUserWallet));
     // act
     const result = await fundWalletUseCase.execute(tAmount, tUserId);
     // assert
@@ -112,7 +112,7 @@ describe("Fund wallet Test ", () => {
         .mockImplementation(() => Promise.resolve(tUserWallet));
       jest
         .spyOn(mockWalletRepository, "update")
-        .mockImplementation(() => Promise.resolve(false));
+        .mockImplementation(() => Promise.resolve(tUserWallet));
       // act
       await fundWalletUseCase.execute(tAmount, tUserId);
       // assert

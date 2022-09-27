@@ -14,7 +14,7 @@ import { User } from "../../../../src/domain/entities/user.entity";
 import { Errors } from "../../../../src/core/common/errors";
 const chance = new Chance();
 
-describe("Initiate Funding", () => {
+describe("InitiateFunding UseCase", () => {
   class MockWalletRepository implements IWalletRepository {
     findById(id: string): Promise<Wallet | null> {
       throw new Error("Method not implemented.");
@@ -28,7 +28,7 @@ describe("Initiate Funding", () => {
     createWallet(wallet: Wallet): Promise<Wallet> {
       throw new Error("Method not implemented.");
     }
-    update(wallet: Wallet): Promise<boolean> {
+    update(wallet: Wallet): Promise<Wallet> {
       throw new Error("Method not implemented.");
     }
     findBy(query: WalletQuery): Promise<Wallet | null> {

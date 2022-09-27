@@ -7,7 +7,7 @@ import { IRegisterUsecase } from "../../../../src/domain/interfaces/useCases/use
 import { RegisterUseCase } from "../../../../src/domain/useCases/user/register.useCase";
 import { ValidationError } from "../../../../src/core/common/Response";
 
-describe("User Registeration Test ", () => {
+describe("Register UseCase", () => {
   class MockUserRepository implements IUserRepository {
     login(email: string, password: string): Promise<User | null> {
       throw new Error("Method not implemented.");

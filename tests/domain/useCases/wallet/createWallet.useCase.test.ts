@@ -8,7 +8,7 @@ import { PaymentIntailizationResponse } from "../../../../src/domain/interfaces/
 import { Errors } from "../../../../src/core/common/errors";
 const chance = new Chance();
 
-describe("Create Wallet Test ", () => {
+describe("CreateWallet UseCase ", () => {
   // Test: data should be of type [Wallet]
   class MockWalletRepository implements IWalletRepository {
     findById(id: string): Promise<Wallet | null> {
@@ -20,7 +20,7 @@ describe("Create Wallet Test ", () => {
     findByUserId(userId: string): Promise<Wallet> {
       throw new Error("Method not implemented.");
     }
-    update(wallet: Wallet): Promise<boolean> {
+    update(wallet: Wallet): Promise<Wallet> {
       throw new Error("Method not implemented.");
     }
     createWallet(wallet: Wallet): Promise<Wallet> {

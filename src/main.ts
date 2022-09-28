@@ -30,6 +30,7 @@ import { requiresAuth } from "./presentation/middlewares/auth";
 import { GetBanksUseCase } from "./domain/useCases/wallet/getBanks.useCase";
 import { VerifyAccountNumberUseCase } from "./domain/useCases/wallet/verifyAccountNumber.useCase";
 import { InitiateWithdrawalUseCase } from "./domain/useCases/wallet/initiateWithdrawal.useCase";
+import { Request, Response } from "express";
 config();
 
 (async () => {
@@ -135,9 +136,18 @@ config();
   server.use("/user", userRouter);
   server.use("/wallet", walletRouter);
   server.use(ErrorHandler);
+  server.on("SIGINT", () => {
+    console.log("Gracefully shutting Down Server");
+    process.exit(0);
+  });
+
+  server.on("SIGTERM", () => {
+    console.log("Gracefully shutting Down Server");
+    process.exit(0);
+  });
   server.get("/syncronize", (req: Request, res: Response) => {
     syncronize();
-    res.json({ syncronized: true });
+    return res.json({ syncronize: true });
   });
   // const walletDataSource = new WalletDataSource
 })();

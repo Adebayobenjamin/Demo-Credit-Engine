@@ -1,0 +1,14 @@
+setup:
+  addons:
+    - plan: cleardb
+      as: DATABASE
+  config:
+    APP_NAME: democredit
+build:
+  docker:
+    server: Dockerfile
+  config:
+    NODE_ENV: production
+run:
+  server: npm run build
+  server: npm run start

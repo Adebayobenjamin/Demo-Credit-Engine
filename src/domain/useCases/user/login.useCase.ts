@@ -17,11 +17,6 @@ export class LoginUseCase implements ILoginUseCase {
         statusCode: 401,
         message: Errors.INVALID_CREDENTIALS,
     })
-    // const isSamePassword = await this.cryptBox.verifyHash(user.password, password);
-    // if(!isSamePassword) throw new ResponseError({
-    //     statusCode: 401,
-    //     message: "incorrect password",
-    // })
     return user;
   }
   

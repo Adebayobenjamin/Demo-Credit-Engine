@@ -6,15 +6,22 @@ import {
 import { WithdrawUseCase } from "../../../../src/domain/useCases/wallet/withdraw.useCase";
 import * as uuid from "uuid";
 import { Chance } from "chance";
-import { User } from "../../../../src/domain/entities/user.entity";
-import { IFundWalletUseCase } from "../../../../src/domain/interfaces/useCases/wallet/fundWallet.useCase";
 import { Errors } from "../../../../src/core/common/errors";
 import { IWithdrawUseCase } from "../../../../src/domain/interfaces/useCases/wallet/withdraw.useCase";
-import { IntailizatePaymentResponse } from "../../../../src/data/interfaces/dataSources/paymentGateway/paymentGateway";
+import { AccountVerificationResponse, Bank, IntailizatePaymentResponse } from "../../../../src/data/interfaces/dataSources/paymentGateway/paymentGateway";
 const chance = new Chance();
 
 describe("Withdraw UseCase", () => {
   class MockWalletRepository implements IWalletRepository {
+    initaiteWithdrawal(amount: number, accountName: string, accountNumber: string, bankCode: string, walletId: string): Promise<boolean> {
+      throw new Error("Method not implemented.");
+    }
+    getBanks(): Promise<Bank[]> {
+      throw new Error("Method not implemented.");
+    }
+    verifyAccountNumber(accountNumber: string, bankCode: string): Promise<AccountVerificationResponse> {
+      throw new Error("Method not implemented.");
+    }
     findById(id: string): Promise<Wallet | null> {
       throw new Error("Method not implemented.");
     }
@@ -46,7 +53,7 @@ describe("Withdraw UseCase", () => {
     withdrawUseCase = new WithdrawUseCase(mockWalletRepository);
   });
 
-  let tUser: User = {
+  let tUser = {
     id: uuid.v4(),
     email: chance.email(),
     password: chance.sentence(),
@@ -56,7 +63,7 @@ describe("Withdraw UseCase", () => {
     id: uuid.v4(),
     accountNo: "000000000",
     balance: 1000,
-    user: tUser,
+    userId: tUser.id,
   };
   test("should withdraw specified amount from wallet", async () => {
     // arrange
@@ -64,7 +71,7 @@ describe("Withdraw UseCase", () => {
     const tUserId = uuid.v4();
     const newBalance = (tUserWallet.balance as number) - tAmount;
     jest
-      .spyOn(mockWalletRepository, "findByUserId")
+      .spyOn(mockWalletRepository, "findById")
       .mockImplementation(() => Promise.resolve(tUserWallet));
     jest
       .spyOn(mockWalletRepository, "update")
@@ -75,9 +82,9 @@ describe("Withdraw UseCase", () => {
     expect(result).toBeDefined();
     expect(result.accountNo).toBe(tUserWallet.accountNo);
     expect(result.id).toBe(tUserWallet.id);
-    expect(result.user).toStrictEqual(tUserWallet.user);
+    expect(result.userId).toStrictEqual(tUserWallet.userId);
     expect(result.balance).toBe(newBalance);
-    expect(mockWalletRepository.findByUserId).toBeCalledTimes(1);
+    expect(mockWalletRepository.findById).toBeCalledTimes(1);
     expect(mockWalletRepository.update).toBeCalledTimes(1);
   });
 
@@ -87,12 +94,12 @@ describe("Withdraw UseCase", () => {
       const tAmount = 100;
       const tUserId = uuid.v4();
       jest
-        .spyOn(mockWalletRepository, "findByUserId")
+        .spyOn(mockWalletRepository, "findById")
         .mockImplementation(() => Promise.resolve(null));
       // act
       await withdrawUseCase.execute(tAmount, tUserId);
       // assert
-      expect(mockWalletRepository.findByUserId).toBeCalledTimes(1);
+      expect(mockWalletRepository.findById).toBeCalledTimes(1);
     } catch (error) {
       // assert
       expect(error).toBeDefined();
@@ -107,7 +114,7 @@ describe("Withdraw UseCase", () => {
       const tAmount = 100;
       const tUserId = uuid.v4();
       jest
-        .spyOn(mockWalletRepository, "findByUserId")
+        .spyOn(mockWalletRepository, "findById")
         .mockImplementation(() => Promise.resolve(tUserWallet));
       jest
         .spyOn(mockWalletRepository, "update")
@@ -115,7 +122,7 @@ describe("Withdraw UseCase", () => {
       // act
       await withdrawUseCase.execute(tAmount, tUserId);
       // assert
-      expect(mockWalletRepository.findByUserId).toBeCalledTimes(1);
+      expect(mockWalletRepository.findById).toBeCalledTimes(1);
       expect(mockWalletRepository.update).toBeCalledTimes(1);
 
     } catch (error) {

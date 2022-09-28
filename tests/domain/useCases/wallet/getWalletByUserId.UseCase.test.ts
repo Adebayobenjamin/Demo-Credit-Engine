@@ -9,11 +9,20 @@ import * as uuid from "uuid";
 import { Chance } from "chance";
 import { User } from "../../../../src/domain/entities/user.entity";
 import { Errors } from "../../../../src/core/common/errors";
-import { IntailizatePaymentResponse } from "../../../../src/data/interfaces/dataSources/paymentGateway/paymentGateway";
+import { AccountVerificationResponse, Bank, IntailizatePaymentResponse } from "../../../../src/data/interfaces/dataSources/paymentGateway/paymentGateway";
 const chance = new Chance();
 
 describe("GetWalletByUserId UseCase", () => {
   class MockWalletRepository implements IWalletRepository {
+    initaiteWithdrawal(amount: number, accountName: string, accountNumber: string, bankCode: string, walletId: string): Promise<boolean> {
+      throw new Error("Method not implemented.");
+    }
+    getBanks(): Promise<Bank[]> {
+      throw new Error("Method not implemented.");
+    }
+    verifyAccountNumber(accountNumber: string, bankCode: string): Promise<AccountVerificationResponse> {
+      throw new Error("Method not implemented.");
+    }
     createWallet(wallet: Wallet): Promise<Wallet> {
       throw new Error("Method not implemented.");
     }
@@ -47,7 +56,7 @@ describe("GetWalletByUserId UseCase", () => {
     );
   });
 
-  let tUser: User = {
+  let tUser = {
     id: uuid.v4(),
     email: chance.email(),
     password: chance.sentence(),
@@ -57,7 +66,7 @@ describe("GetWalletByUserId UseCase", () => {
     id: uuid.v4(),
     accountNo: "000000000",
     balance: 1000,
-    userId: tUser.id as string,
+    userId: tUser.id ,
   };
   const tUserId = uuid.v4();
 

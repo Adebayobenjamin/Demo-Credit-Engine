@@ -11,6 +11,9 @@ import { ITransferUseCase } from "../../domain/interfaces/useCases/wallet/transf
 import { IWithdrawUseCase } from "../../domain/interfaces/useCases/wallet/withdraw.useCase";
 import { InitiateFundingUseCase } from "../../domain/useCases/wallet/initiateFunding.useCase";
 import crypto from "crypto";
+import { IGetBanksUseCase } from "../../domain/interfaces/useCases/wallet/getBanks.useCase";
+import { IVerifyAccountNumberUseCase } from "../../domain/interfaces/useCases/wallet/verifyAccountNumber.useCase";
+import { IInitiateWithdrawalUseCase } from "../../domain/interfaces/useCases/wallet/initiateWithdrawal.useCase";
 export class WalletController {
   fundWalletUseCase: IFundWalletUseCase;
   getWalletByUserIdUseCase: IGetWalletByUserIdUseCase;
@@ -18,6 +21,9 @@ export class WalletController {
   transferUseCase: ITransferUseCase;
   withdrawUseCase: IWithdrawUseCase;
   getUserByIdUseCase: IGetUserByIdUseCase;
+  getBanksUseCase: IGetBanksUseCase;
+  verifyAccountNumberUseCase: IVerifyAccountNumberUseCase;
+  initiateWithdrawalUseCase: IInitiateWithdrawalUseCase;
   // createTransactionUseCase: ICreateTransactionUseCase;
   constructor(
     fundWalletUseCase: IFundWalletUseCase,
@@ -25,7 +31,10 @@ export class WalletController {
     initiateFundingUseCase: InitiateFundingUseCase,
     transferUseCase: ITransferUseCase,
     withdrawUseCase: IWithdrawUseCase,
-    getUserByIdUseCase: IGetUserByIdUseCase
+    getUserByIdUseCase: IGetUserByIdUseCase,
+    getBanksUseCase: IGetBanksUseCase,
+    verifyAccountNumberUseCase: IVerifyAccountNumberUseCase,
+    initiateWithdrawalUseCase: IInitiateWithdrawalUseCase
     // createTransactionUseCase: ICreateTransactionUseCase
   ) {
     this.fundWalletUseCase = fundWalletUseCase;
@@ -34,6 +43,9 @@ export class WalletController {
     this.transferUseCase = transferUseCase;
     this.withdrawUseCase = withdrawUseCase;
     this.getUserByIdUseCase = getUserByIdUseCase;
+    this.getBanksUseCase = getBanksUseCase;
+    this.verifyAccountNumberUseCase = verifyAccountNumberUseCase;
+    this.initiateWithdrawalUseCase = initiateWithdrawalUseCase;
     // this.createTransactionUseCase = createTransactionUseCase;
   }
 
@@ -57,9 +69,9 @@ export class WalletController {
                 req.body.data.metadata.walletId
               );
 
-        return res.status(200).json({status: true});
+        return res.status(200).json({ status: true });
       }
-     return  res.status(200).json({status: false});
+      return res.status(200).json({ status: false });
     } catch (error) {
       next(error);
     }
@@ -146,6 +158,65 @@ export class WalletController {
     try {
       const result = await this.withdrawUseCase.execute(
         req.body.amount,
+        req["user"]
+      );
+      return res.status(200).json(
+        new ResponseData({
+          status: true,
+          data: result,
+        })
+      );
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  getBanks = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const result = await this.getBanksUseCase.execute();
+      return res.status(200).json(
+        new ResponseData({
+          status: true,
+          data: result,
+        })
+      );
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  verifyAccountNumber = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const result = await this.verifyAccountNumberUseCase.execute(
+        req.body.accountNumber,
+        req.body.bankCode
+      );
+      return res.status(200).json(
+        new ResponseData({
+          status: true,
+          data: result,
+        })
+      );
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  initiateWithdrawal = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const result = await this.initiateWithdrawalUseCase.execute(
+        req.body.amount,
+        req.body.accountName,
+        req.body.accountNumber,
+        req.body.bankCode,
         req["user"]
       );
       return res.status(200).json(

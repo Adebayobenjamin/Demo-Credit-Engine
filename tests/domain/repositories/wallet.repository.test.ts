@@ -2,7 +2,12 @@ import { IWalletDataSource } from "../../../src/data/interfaces/dataSources/wall
 import { Wallet } from "../../../src/domain/entities/wallet.entity";
 import { IWalletRepository } from "../../../src/domain/interfaces/repositories/wallet.repository";
 import { WalletRepository } from "../../../src/domain/repositories/wallet.repository";
-import { IntailizatePaymentResponse, IPaymentGateway } from "../../../src/data/interfaces/dataSources/paymentGateway/paymentGateway";
+import {
+  AccountVerificationResponse,
+  Bank,
+  IntailizatePaymentResponse,
+  IPaymentGateway,
+} from "../../../src/data/interfaces/dataSources/paymentGateway/paymentGateway";
 import { User } from "../../../src/domain/entities/user.entity";
 import { Chance } from "chance";
 import * as uuid from "uuid";
@@ -26,6 +31,16 @@ describe("Wallet Repository", () => {
     }
   }
   class MockPaymentGateway implements IPaymentGateway {
+    verifyAccountNumber(
+      accountNumber: string,
+      bankCode: string
+    ): Promise<AccountVerificationResponse> {
+      throw new Error("Method not implemented.");
+    }
+    getBanks(): Promise<Bank[]> {
+      throw new Error("Method not implemented.");
+    }
+
     initiatePayment(payload: any): Promise<any> {
       throw new Error("Method not implemented.");
     }
@@ -52,14 +67,14 @@ describe("Wallet Repository", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
-  let tUser: User = {
+  let tUser = {
     id: uuid.v4(),
     email: chance.email(),
     password: chance.sentence(),
   };
   const tInputData = {
     accountNo: "000000000",
-    user: tUser,
+    userId: tUser.id,
   };
   const tWallet: Wallet = {
     id: uuid.v4(),
@@ -145,7 +160,7 @@ describe("Wallet Repository", () => {
         .spyOn(mockWalletDataSource, "findByUserId")
         .mockImplementation(() => Promise.resolve(tWallet));
       // act
-      const result = await walletRepository.findByUserId(tUser.id as string);
+      const result = await walletRepository.findByUserId(tUser.id);
       // assert
       expect(result).toBeDefined();
       expect(result).toStrictEqual(tWallet);
@@ -189,4 +204,60 @@ describe("Wallet Repository", () => {
       expect(mockPaymentGateway.initiatePayment).toBeCalledTimes(1);
     });
   });
+
+  describe("getBanks", () => {
+    const tBanks = [
+      {
+        id: 302,
+        name: "9mobile 9Payment Service Bank",
+        slug: "9mobile-9payment-service-bank-ng",
+        code: "120001",
+        longcode: "120001",
+        gateway: "",
+        pay_with_bank: false,
+        active: true,
+        country: "Nigeria",
+        currency: "NGN",
+        type: "nuban",
+        is_deleted: false,
+        createdAt: "2022-05-31T06:50:27.000Z",
+        updatedAt: "2022-06-23T09:33:55.000Z",
+      },
+    ];
+    test("should get banks list", async () => {
+      // arrange
+      jest
+        .spyOn(mockPaymentGateway, "getBanks")
+        .mockImplementation(() => Promise.resolve(tBanks));
+      // act
+      const result = await walletRepository.getBanks();
+      // assert
+      expect(result).toBeDefined();
+      expect(result).toStrictEqual(tBanks);
+      expect(mockPaymentGateway.getBanks).toBeCalledTimes(1);
+    });
+  });
+
+  test("should verifyAccount Number", async () => {
+    // arrange
+    const tVerificationResponse = {
+      status: true,
+      accountName: chance.name(),
+      accountNumber: chance.string(),
+    };
+    const tPayload = {
+      accountNumber: chance.string(),
+      bankCode: chance.string(),
+    };
+    jest
+      .spyOn(mockPaymentGateway, "verifyAccountNumber")
+      .mockImplementation(() => Promise.resolve(tVerificationResponse));
+    // act
+    const result = await walletRepository.verifyAccountNumber(tPayload.accountNumber, tPayload.bankCode);
+    // assert
+    expect(result).toBeDefined();
+    expect(result).toStrictEqual(tVerificationResponse);
+    expect(mockPaymentGateway.verifyAccountNumber).toBeCalledTimes(1);
+  });
 });
+// TODO: Test initaiteWithdrawal, getBanks, verifyAccountNumber

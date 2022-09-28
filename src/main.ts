@@ -27,13 +27,16 @@ import WalletRouter from "./presentation/routes/wallet.router";
 import { WalletController } from "./presentation/controllers/wallet.controller";
 import { GetUserByIdUseCase } from "./domain/useCases/user/getUserById.useCase";
 import { requiresAuth } from "./presentation/middlewares/auth";
+import { GetBanksUseCase } from "./domain/useCases/wallet/getBanks.useCase";
+import { VerifyAccountNumberUseCase } from "./domain/useCases/wallet/verifyAccountNumber.useCase";
+import { InitiateWithdrawalUseCase } from "./domain/useCases/wallet/initiateWithdrawal.useCase";
 config();
 
 (async () => {
   const userDatabase: IUserDatabase = {
     insertOne: async function (data): Promise<any> {
       data["id"] = uuid.v4();
-      const result = await db("user").insert(data, ["id", "email"]);
+      await db("user").insert(data, ["id", "email"]);
       const user = (
         await db("user").where({ id: data["id"] }).select("id", "email")
       )[0];
@@ -102,13 +105,23 @@ config();
   const initiateFundingUseCase = new InitiateFundingUseCase(walletRepository);
   const transferUseCase = new TransferUseCase(walletRepository);
   const withdrawUseCase = new WithdrawUseCase(walletRepository);
+  const getBanksUseCase = new GetBanksUseCase(walletRepository);
+  const verifyAccountNumberUseCase = new VerifyAccountNumberUseCase(
+    walletRepository
+  );
+  const initiateWithdrawalUseCase = new InitiateWithdrawalUseCase(
+    walletRepository
+  );
   const walletController = new WalletController(
     fundWalletUseCase,
     getWalletByUserIdUseCase,
     initiateFundingUseCase,
     transferUseCase,
     withdrawUseCase,
-    getUserByIdUseCase
+    getUserByIdUseCase,
+    getBanksUseCase,
+    verifyAccountNumberUseCase,
+    initiateWithdrawalUseCase
   );
 
   const userController = new UserController(

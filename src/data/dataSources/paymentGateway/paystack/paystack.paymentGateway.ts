@@ -1,5 +1,7 @@
 import { config } from "dotenv";
 import {
+  AccountVerificationResponse,
+  Bank,
   InitiatePaymentPayload,
   IntailizatePaymentResponse,
   IPaymentGateway,
@@ -7,11 +9,13 @@ import {
 import axios from "axios";
 import { ResponseError } from "../../../../core/common/Response";
 import crypto from "crypto";
+import { Errors } from "../../../../core/common/errors";
 
 config();
 export class PayStackPaymentGateway implements IPaymentGateway {
   #baseUrl = "https://api.paystack.co";
   #privateKey = process.env.PAYSTACK_PRIVATE_KEY;
+
   async initiatePayment(
     payload: InitiatePaymentPayload
   ): Promise<IntailizatePaymentResponse> {
@@ -49,13 +53,19 @@ export class PayStackPaymentGateway implements IPaymentGateway {
       });
     }
   }
-  async withdrawFromBankAccount(payload: any): Promise<any> {
+  async withdrawFromBankAccount(
+    amount: number,
+    accountName: string,
+    accountNumber: string,
+    bankCode: string,
+    walletId: string
+  ): Promise<any> {
     try {
       // create Recipient
       const transferRecipient = await this.#createTransferRecipient(
-        payload.account_name,
-        payload.account_number,
-        payload.bank_code
+        accountName,
+        accountNumber,
+        bankCode
       );
       if (transferRecipient.status !== 200 && transferRecipient.status !== 201)
         throw new ResponseError({
@@ -64,13 +74,17 @@ export class PayStackPaymentGateway implements IPaymentGateway {
         });
       // withdraw
       const transfer = await this.#initiateTransfer(
-        payload.amount,
-        transferRecipient.data.data.recipient_code
+        amount,
+        transferRecipient.data.data.recipient_code,
+        walletId
       );
     } catch (error) {
       throw new ResponseError({
         statusCode: 500,
-        message: error.message ?? "Something went wrong with withdrawal",
+        message:
+          error?.response?.data?.message ||
+          error.message ||
+          "Something went wrong with payment",
       });
     }
   }
@@ -84,11 +98,64 @@ export class PayStackPaymentGateway implements IPaymentGateway {
     if (hash == payload.signature) {
       isWithdrawal = payload.body.event == "transfer.success";
       return { status: true, isWithdrawal };
-    }else{
-      return {status: false}
+    } else {
+      return { status: false };
     }
   }
 
+  async verifyAccountNumber(
+    accountNumber: string,
+    bankCode: string
+  ): Promise<AccountVerificationResponse> {
+    try {
+      const response = await axios.get(
+        `${
+          this.#baseUrl
+        }/bank/resolve?account_number=${accountNumber}&bank_code=${bankCode}`,
+        {
+          headers: {
+            Authorization: `Bearer ${this.#privateKey}`,
+          },
+        }
+      );
+      if (!response.data.status)
+        throw new ResponseError({
+          statusCode: 500,
+          message: Errors.INVALID_BANK_DETAILS,
+        });
+      return {
+        status: response.data.status,
+        accountName: response.data.data.account_name,
+        accountNumber: response.data.data.account_number,
+      };
+    } catch (error) {
+      throw new ResponseError({
+        statusCode: 500,
+        message:
+          error?.response?.data?.message ||
+          error.message ||
+          "Something went wrong with payment",
+      });
+    }
+  }
+  async getBanks(): Promise<Bank[]> {
+    try {
+      const response = await axios.get(`${this.#baseUrl}/bank?currency=NGN`, {
+        headers: {
+          Authorization: `Bearer ${this.#privateKey}`,
+        },
+      });
+      return response.data.data;
+    } catch (error) {
+      throw new ResponseError({
+        statusCode: 500,
+        message:
+          error?.response?.data?.message ||
+          error.message ||
+          "Something went wrong with payment",
+      });
+    }
+  }
   #createTransferRecipient(
     account_name: string,
     account_number: string,
@@ -111,7 +178,7 @@ export class PayStackPaymentGateway implements IPaymentGateway {
     );
   }
 
-  #initiateTransfer(amount: number, recipient: string) {
+  #initiateTransfer(amount: number, recipient: string, walletId: string) {
     return axios.post(
       `${this.#baseUrl}/transfer`,
       {
@@ -119,6 +186,7 @@ export class PayStackPaymentGateway implements IPaymentGateway {
         amount: amount * 100,
         recipient,
         reason: "withrawal",
+        reference: walletId,
       },
       {
         headers: {

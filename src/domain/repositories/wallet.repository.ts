@@ -1,5 +1,5 @@
 import { IWalletDataSource } from "../../data/interfaces/dataSources/wallet.dataSource";
-import { IntailizatePaymentResponse, IPaymentGateway } from "../../data/interfaces/dataSources/paymentGateway/paymentGateway";
+import { AccountVerificationResponse, Bank, IntailizatePaymentResponse, IPaymentGateway } from "../../data/interfaces/dataSources/paymentGateway/paymentGateway";
 import { Wallet } from "../entities/wallet.entity";
 import {
   IWalletRepository,
@@ -37,5 +37,15 @@ export class WalletRepository implements IWalletRepository {
     wallet: Wallet
   ): Promise<IntailizatePaymentResponse> {
     return this.paymentGateway.initiatePayment({ amount, wallet });
+  }
+
+  initaiteWithdrawal(amount: number, accountName: string, accountNumber: string, bankCode: string, walletId: string): Promise<boolean> {
+   return this.paymentGateway.withdrawFromBankAccount(amount, accountName, accountNumber, bankCode, walletId)
+  }
+  getBanks(): Promise<Bank[]> {
+    return this.paymentGateway.getBanks();
+  }
+  verifyAccountNumber(accountNumber: string, bankCode: string): Promise<AccountVerificationResponse> {
+   return this.paymentGateway.verifyAccountNumber(accountNumber, bankCode)
   }
 }

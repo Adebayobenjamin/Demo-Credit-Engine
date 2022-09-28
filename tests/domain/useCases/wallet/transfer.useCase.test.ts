@@ -6,11 +6,20 @@ import * as uuid from "uuid";
 import { User } from "../../../../src/domain/entities/user.entity";
 import { ITransferUseCase } from "../../../../src/domain/interfaces/useCases/wallet/transfer.useCase";
 import { Errors } from "../../../../src/core/common/errors";
-import { IntailizatePaymentResponse } from "../../../../src/data/interfaces/dataSources/paymentGateway/paymentGateway";
+import { AccountVerificationResponse, Bank, IntailizatePaymentResponse } from "../../../../src/data/interfaces/dataSources/paymentGateway/paymentGateway";
 const chance = new Chance();
 
 describe("Transfer UseCase ", () => {
   class MockWalletRepository implements IWalletRepository {
+    initaiteWithdrawal(amount: number, accountName: string, accountNumber: string, bankCode: string, walletId: string): Promise<boolean> {
+      throw new Error("Method not implemented.");
+    }
+    getBanks(): Promise<Bank[]> {
+      throw new Error("Method not implemented.");
+    }
+    verifyAccountNumber(accountNumber: string, bankCode: string): Promise<AccountVerificationResponse> {
+      throw new Error("Method not implemented.");
+    }
     findById(id: string): Promise<Wallet | null> {
       throw new Error("Method not implemented.");
     }
@@ -40,12 +49,12 @@ describe("Transfer UseCase ", () => {
     mockWalletRepository = new MockWalletRepository();
     transferUseCase = new TransferUseCase(mockWalletRepository);
   });
-  let tSender: User = {
+  let tSender = {
     id: uuid.v4(),
     email: chance.email(),
     password: chance.sentence(),
   };
-  let tRciever: User = {
+  let tRciever = {
     id: uuid.v4(),
     email: chance.email(),
     password: chance.sentence(),
@@ -54,13 +63,13 @@ describe("Transfer UseCase ", () => {
     id: uuid.v4(),
     accountNo: "000000000",
     balance: 1000,
-    user: tSender,
+    userId: tSender.id,
   };
   const tRecieverWallet: Wallet = {
     id: uuid.v4(),
     accountNo: "000000000",
     balance: 100,
-    user: tRciever,
+    userId: tRciever.id,
   };
 
   test("should transfer specified amount from sender wallet to reciever wallet", async () => {

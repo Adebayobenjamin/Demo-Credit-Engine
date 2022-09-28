@@ -7,5 +7,6 @@ export const Errors = {
   INSUFFICIENT_FUNDS: "Insufficient Funds",
   VALIDATION_ERROR: "Validation Error",
   INVALID_CREDENTIALS: "Invalid Credentials",
-  USER_NOT_FOUND: "User not found"
+  USER_NOT_FOUND: "User not found",
+  INVALID_BANK_DETAILS: "Invalid bank details"
 };

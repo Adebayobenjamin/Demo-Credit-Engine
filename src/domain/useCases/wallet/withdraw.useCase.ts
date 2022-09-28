@@ -18,7 +18,7 @@ export class WithdrawUseCase implements IWithdrawUseCase {
         message: Errors.WALLET_NOT_FOUND,
       });
 
-    userWallet.balance -= amount / 100;
+    userWallet.balance -= amount;
     const update = await this.walletRepository.update(userWallet);
     // TODO: Create Transaction
     if (!update)

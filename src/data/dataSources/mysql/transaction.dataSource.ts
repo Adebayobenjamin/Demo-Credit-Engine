@@ -1,4 +1,4 @@
-import { autoInjectable } from "tsyringe";
+import {  } from "tsyringe";
 import { Transaction } from "../../../domain/entities/transaction.entity";
 import {
   IDatabase,
@@ -6,7 +6,7 @@ import {
 } from "../../interfaces/dataSources/database";
 import { ITransactionDataSource } from "../../interfaces/dataSources/transaction.dataSource";
 
-@autoInjectable()
+
 export class TransactionDataSource implements ITransactionDataSource {
   database: ITransactionDatabase;
   constructor(database: ITransactionDatabase) {

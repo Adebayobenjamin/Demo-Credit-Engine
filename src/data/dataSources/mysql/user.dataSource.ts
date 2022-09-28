@@ -1,9 +1,9 @@
-import { autoInjectable } from "tsyringe";
+import {  } from "tsyringe";
 import { User } from "../../../domain/entities/user.entity";
 import { IUserDatabase } from "../../interfaces/dataSources/database";
 import { IUserDataSource } from "../../interfaces/dataSources/user.dataSource";
 
-@autoInjectable()
+
 export class UserDataSource implements IUserDataSource {
   database: IUserDatabase;
   constructor(Database: IUserDatabase) {

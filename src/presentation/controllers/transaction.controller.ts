@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
-import { autoInjectable } from "tsyringe";
+import {  } from "tsyringe";
 import { ResponseData } from "../../core/common/Response";
 import { ICreateTransactionUseCase } from "../../domain/interfaces/useCases/transaction/createTransaction.useCase";
 import { IGetTransactionsByUserIdUseCase } from "../../domain/interfaces/useCases/transaction/getTransactionsByUserId.useCase";
 
-@autoInjectable()
+
 export class TransactionController {
   getTransactionsByUserIdUseCase: IGetTransactionsByUserIdUseCase;
   constructor(getTransactionsByUserIdUseCase: IGetTransactionsByUserIdUseCase) {

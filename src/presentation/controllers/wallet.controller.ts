@@ -14,9 +14,9 @@ import crypto from "crypto";
 import { IGetBanksUseCase } from "../../domain/interfaces/useCases/wallet/getBanks.useCase";
 import { IVerifyAccountNumberUseCase } from "../../domain/interfaces/useCases/wallet/verifyAccountNumber.useCase";
 import { IInitiateWithdrawalUseCase } from "../../domain/interfaces/useCases/wallet/initiateWithdrawal.useCase";
-import { autoInjectable } from "tsyringe";
 
-@autoInjectable()
+
+
 export class WalletController {
   fundWalletUseCase: IFundWalletUseCase;
   getWalletByUserIdUseCase: IGetWalletByUserIdUseCase;
@@ -29,15 +29,15 @@ export class WalletController {
   initiateWithdrawalUseCase: IInitiateWithdrawalUseCase;
   // createTransactionUseCase: ICreateTransactionUseCase;
   constructor(
-    fundWalletUseCase: IFundWalletUseCase,
-    getWalletByUserIdUseCase: IGetWalletByUserIdUseCase,
-    initiateFundingUseCase: InitiateFundingUseCase,
-    transferUseCase: ITransferUseCase,
-    withdrawUseCase: IWithdrawUseCase,
-    getUserByIdUseCase: IGetUserByIdUseCase,
-    getBanksUseCase: IGetBanksUseCase,
-    verifyAccountNumberUseCase: IVerifyAccountNumberUseCase,
-    initiateWithdrawalUseCase: IInitiateWithdrawalUseCase
+    fundWalletUseCase?: IFundWalletUseCase,
+    getWalletByUserIdUseCase?: IGetWalletByUserIdUseCase,
+    initiateFundingUseCase?: InitiateFundingUseCase,
+    transferUseCase?: ITransferUseCase,
+    withdrawUseCase?: IWithdrawUseCase,
+    getUserByIdUseCase?: IGetUserByIdUseCase,
+    getBanksUseCase?: IGetBanksUseCase,
+    verifyAccountNumberUseCase?: IVerifyAccountNumberUseCase,
+    initiateWithdrawalUseCase?: IInitiateWithdrawalUseCase
     // createTransactionUseCase: ICreateTransactionUseCase
   ) {
     this.fundWalletUseCase = fundWalletUseCase;

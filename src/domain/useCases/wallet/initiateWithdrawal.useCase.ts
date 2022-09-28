@@ -1,11 +1,11 @@
-import { autoInjectable } from "tsyringe";
+import {  } from "tsyringe";
 import { Errors } from "../../../core/common/errors";
 import { ResponseError } from "../../../core/common/Response";
 import { Wallet } from "../../entities/wallet.entity";
 import { IWalletRepository } from "../../interfaces/repositories/wallet.repository";
 import { IInitiateWithdrawalUseCase } from "../../interfaces/useCases/wallet/initiateWithdrawal.useCase";
 
-@autoInjectable()
+
 export class InitiateWithdrawalUseCase implements IInitiateWithdrawalUseCase {
   walletRepository: IWalletRepository;
   constructor(walletRepository: IWalletRepository) {

@@ -1,4 +1,4 @@
-import { autoInjectable } from "tsyringe";
+import {  } from "tsyringe";
 import { ResponseError, ValidationError } from "../../../core/common/Response";
 import { CryptBox } from "../../../core/utils/cryptBox";
 import { User } from "../../entities/user.entity";
@@ -7,7 +7,7 @@ import { IRegisterUseCase } from "../../interfaces/useCases/user/register.useCas
 
 // export const UNIQUE_EMAIL_ERROR = "email already exists";
 
-@autoInjectable()
+
 export class RegisterUseCase implements IRegisterUseCase {
   userRepository: IUserRepository;
   constructor(userRepository: IUserRepository) {

@@ -1,10 +1,10 @@
-import { autoInjectable } from "tsyringe";
+import {  } from "tsyringe";
 import { CryptBox } from "../../core/utils/cryptBox";
 import { IUserDataSource } from "../../data/interfaces/dataSources/user.dataSource";
 import { User } from "../entities/user.entity";
 import { IUserRepository } from "../interfaces/repositories/user.repository";
 
-@autoInjectable()
+
 export class UserRepository implements IUserRepository {
   userDataSource: IUserDataSource;
   cryptBox: CryptBox;

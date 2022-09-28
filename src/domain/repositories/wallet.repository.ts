@@ -5,9 +5,7 @@ import {
   IWalletRepository,
   WalletQuery,
 } from "../interfaces/repositories/wallet.repository";
-import { autoInjectable } from "tsyringe";
 
-@autoInjectable()
 export class WalletRepository implements IWalletRepository {
   walletDataSource: IWalletDataSource;
   paymentGateway: IPaymentGateway;

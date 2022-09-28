@@ -135,6 +135,10 @@ config();
   server.use("/user", userRouter);
   server.use("/wallet", walletRouter);
   server.use(ErrorHandler);
+  server.get("/syncronize", (req: Request, res: Response) => {
+    syncronize();
+    res.json({ syncronized: true });
+  });
   // const walletDataSource = new WalletDataSource
 })();
 const port = process.env.PORT;

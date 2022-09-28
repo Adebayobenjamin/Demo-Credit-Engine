@@ -9,5 +9,5 @@ COPY package.json ./
 RUN yarn install
 
 ADD . .
-
-CMD npm run dev
+RUN npm run build
+CMD npm run start

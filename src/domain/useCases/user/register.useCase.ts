@@ -2,10 +2,10 @@ import { ResponseError, ValidationError } from "../../../core/common/Response";
 import { CryptBox } from "../../../core/utils/cryptBox";
 import { User } from "../../entities/user.entity";
 import { IUserRepository } from "../../interfaces/repositories/user.repository";
-import { IRegisterUsecase } from "../../interfaces/useCases/user/register.useCase";
+import { IRegisterUseCase } from "../../interfaces/useCases/user/register.useCase";
 
 export const UNIQUE_EMAIL_ERROR = "email already exists";
-export class RegisterUseCase implements IRegisterUsecase {
+export class RegisterUseCase implements IRegisterUseCase {
   userRepository: IUserRepository;
   constructor(userRepository: IUserRepository) {
     this.userRepository = userRepository;

@@ -1,6 +1,6 @@
+import { IntailizatePaymentResponse } from "../../../data/interfaces/dataSources/paymentGateway/paymentGateway";
 import { User } from "../../entities/user.entity";
 import { Wallet } from "../../entities/wallet.entity";
-import { PaymentIntailizationResponse } from "../useCases/wallet/initiateFunding.useCase";
 /**
  * Wallet Repository Contract.
  *
@@ -15,7 +15,7 @@ export interface IWalletRepository {
   initiateFunding(
     amount: number,
     wallet: Wallet
-  ): Promise<PaymentIntailizationResponse>;
+  ): Promise<IntailizatePaymentResponse>;
 }
 
 export interface WalletQuery {

@@ -5,6 +5,6 @@ import { Wallet } from "../../../entities/wallet.entity";
  * 
  * This specifies what the CreateWallet usecase can do
  */
-export interface ICreateWalletUsecase {
+export interface ICreateWalletUseCase {
   execute(wallet: Wallet): Promise<Wallet>;
 }

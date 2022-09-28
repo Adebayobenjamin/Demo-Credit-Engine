@@ -5,6 +5,6 @@ import { User } from "../../../entities/user.entity";
  * 
  * This specifies what the Transfer usecase can do
  */
-export interface ITransferUsecase{
+export interface ITransferUseCase{
     execute(amount: number, sender: User, recieverAccountNo: string): Promise<boolean>
 }

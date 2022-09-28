@@ -5,11 +5,10 @@ export interface Transaction {
   id?: string;
   amount: number;
   transactionType: string;
-  sender?: User;
-  reciever: User;
+  sender?: string;
+  reciever: string;
   paymentGateway: string;
   currency: string;
-  wallet: Wallet;
   reference_code?: string;
 }
 

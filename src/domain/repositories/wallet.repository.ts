@@ -1,11 +1,10 @@
 import { IWalletDataSource } from "../../data/interfaces/dataSources/wallet.dataSource";
-import { IPaymentGateway } from "../../data/interfaces/paymentGateway/paymentGateway";
+import { IntailizatePaymentResponse, IPaymentGateway } from "../../data/interfaces/dataSources/paymentGateway/paymentGateway";
 import { Wallet } from "../entities/wallet.entity";
 import {
   IWalletRepository,
   WalletQuery,
 } from "../interfaces/repositories/wallet.repository";
-import { PaymentIntailizationResponse } from "../interfaces/useCases/wallet/initiateFunding.useCase";
 
 export class WalletRepository implements IWalletRepository {
   walletDataSource: IWalletDataSource;
@@ -36,7 +35,7 @@ export class WalletRepository implements IWalletRepository {
   initiateFunding(
     amount: number,
     wallet: Wallet
-  ): Promise<PaymentIntailizationResponse> {
+  ): Promise<IntailizatePaymentResponse> {
     return this.paymentGateway.initiatePayment({ amount, wallet });
   }
 }

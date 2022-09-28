@@ -4,8 +4,8 @@ import { IWalletRepository } from "../../../../src/domain/interfaces/repositorie
 import { CreateWalletUseCase } from "../../../../src/domain/useCases/wallet/createWallet.useCase";
 import { Chance } from "chance";
 import * as uuid from "uuid";
-import { PaymentIntailizationResponse } from "../../../../src/domain/interfaces/useCases/wallet/initiateFunding.useCase";
 import { Errors } from "../../../../src/core/common/errors";
+import { IntailizatePaymentResponse } from "../../../../src/data/interfaces/dataSources/paymentGateway/paymentGateway";
 const chance = new Chance();
 
 describe("CreateWallet UseCase ", () => {
@@ -14,7 +14,7 @@ describe("CreateWallet UseCase ", () => {
     findById(id: string): Promise<Wallet | null> {
       throw new Error("Method not implemented.");
     }
-    initiateFunding(amount: number, wallet: Wallet): Promise<PaymentIntailizationResponse> {
+    initiateFunding(amount: number, wallet: Wallet): Promise<IntailizatePaymentResponse> {
       throw new Error("Method not implemented.");
     }
     findByUserId(userId: string): Promise<Wallet> {

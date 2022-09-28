@@ -3,9 +3,9 @@ import { ResponseError } from "../../../core/common/Response";
 import { CryptBox } from "../../../core/utils/cryptBox";
 import { User } from "../../entities/user.entity";
 import { IUserRepository } from "../../interfaces/repositories/user.repository";
-import { ILoginUsecase } from "../../interfaces/useCases/user/login.useCase";
+import { ILoginUseCase } from "../../interfaces/useCases/user/login.useCase";
 
-export class LoginUseCase implements ILoginUsecase {
+export class LoginUseCase implements ILoginUseCase {
   userRepository: IUserRepository;
   constructor(userRepository: IUserRepository) {
     this.userRepository = userRepository;

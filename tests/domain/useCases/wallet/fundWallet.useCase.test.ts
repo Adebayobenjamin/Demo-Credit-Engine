@@ -6,12 +6,10 @@ import {
 import { FundWalletUseCase } from "../../../../src/domain/useCases/wallet/fundWallet.useCase";
 import * as uuid from "uuid";
 import { Chance } from "chance";
-import {
-  PaymentIntailizationResponse,
-} from "../../../../src/domain/interfaces/useCases/wallet/initiateFunding.useCase";
 import { User } from "../../../../src/domain/entities/user.entity";
-import { IFundWalletUsecase } from "../../../../src/domain/interfaces/useCases/wallet/fundWallet.useCase";
+import { IFundWalletUseCase } from "../../../../src/domain/interfaces/useCases/wallet/fundWallet.useCase";
 import { Errors } from "../../../../src/core/common/errors";
+import { IntailizatePaymentResponse } from "../../../../src/data/interfaces/dataSources/paymentGateway/paymentGateway";
 const chance = new Chance();
 
 describe("FundWallet UseCase ", () => {
@@ -22,7 +20,7 @@ describe("FundWallet UseCase ", () => {
     initiateFunding(
       amount: number,
       wallet: Wallet
-    ): Promise<PaymentIntailizationResponse> {
+    ): Promise<IntailizatePaymentResponse> {
       throw new Error("Method not implemented.");
     }
     createWallet(wallet: Wallet): Promise<Wallet> {
@@ -40,7 +38,7 @@ describe("FundWallet UseCase ", () => {
   }
 
   let mockWalletRepository: IWalletRepository;
-  let fundWalletUseCase: IFundWalletUsecase;
+  let fundWalletUseCase: IFundWalletUseCase;
   beforeEach(() => {
     jest.clearAllMocks();
     mockWalletRepository = new MockWalletRepository();

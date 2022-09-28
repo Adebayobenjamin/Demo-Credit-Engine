@@ -15,11 +15,11 @@
 //     message: string
 // }
 
-export class Response {
+export class ResponseData {
   status: boolean;
   error?: any;
   data?: any;
-  constructor({ status = true, error, data }) {
+  constructor({ status = true, error = null, data = null }) {
     this.status = status;
     this.error = error;
     this.data = data;
@@ -45,4 +45,3 @@ export class ValidationError {
     this.message = message;
   }
 }
-

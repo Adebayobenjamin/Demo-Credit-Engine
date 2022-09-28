@@ -10,4 +10,4 @@ RUN npm install
 
 ADD . .
 
-CMD npm run start
+CMD npm run dev

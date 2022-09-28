@@ -12,6 +12,6 @@ export class TransactionRepository implements ITransactionRepository {
     return this.transactionDataSource.create(transaction);
   }
   findAllByUserId(userId: string): Promise<Transaction[]> {
-    return this.transactionDataSource.findAll({ userId });
+    return this.transactionDataSource.findAllByUserId(userId);
   }
 }

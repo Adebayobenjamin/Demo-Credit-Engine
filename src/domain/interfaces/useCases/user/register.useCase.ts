@@ -1,9 +1,9 @@
 import { User } from "../../../entities/user.entity";
 /**
- * User Registration Usecase Contract
+ * User Registration UseCase Contract
  * 
  * this specifies what user register usecase can do
  */
-export interface IRegisterUsecase {
+export interface IRegisterUseCase {
   execute(user: User): Promise<User>;
 }

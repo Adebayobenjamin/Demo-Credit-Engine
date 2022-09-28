@@ -3,7 +3,7 @@ import { IUserRepository } from "../../../../src/domain/interfaces/repositories/
 import { Chance } from "chance";
 const chance = new Chance();
 import * as uuid from "uuid";
-import { IRegisterUsecase } from "../../../../src/domain/interfaces/useCases/user/register.useCase";
+import { IRegisterUseCase } from "../../../../src/domain/interfaces/useCases/user/register.useCase";
 import { RegisterUseCase } from "../../../../src/domain/useCases/user/register.useCase";
 import { ValidationError } from "../../../../src/core/common/Response";
 
@@ -24,7 +24,7 @@ describe("Register UseCase", () => {
   }
 
   let mockUserRepository: IUserRepository;
-  let registerUserUseCase: IRegisterUsecase;
+  let registerUserUseCase: IRegisterUseCase;
   beforeEach(() => {
     jest.clearAllMocks();
     mockUserRepository = new MockUserRepository();

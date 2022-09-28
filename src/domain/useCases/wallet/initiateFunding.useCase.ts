@@ -1,13 +1,13 @@
 import { Errors } from "../../../core/common/errors";
 import { ResponseError } from "../../../core/common/Response";
+import { IntailizatePaymentResponse } from "../../../data/interfaces/dataSources/paymentGateway/paymentGateway";
 import { Wallet } from "../../entities/wallet.entity";
 import { IWalletRepository } from "../../interfaces/repositories/wallet.repository";
 import {
-  IInitiateFundingUsecase,
-  PaymentIntailizationResponse,
+  IInitiateFundingUseCase,
 } from "../../interfaces/useCases/wallet/initiateFunding.useCase";
 
-export class InitiateFundingUseCase implements IInitiateFundingUsecase {
+export class InitiateFundingUseCase implements IInitiateFundingUseCase {
   walletRepository: IWalletRepository;
   constructor(walletRepository: IWalletRepository) {
     this.walletRepository = walletRepository;
@@ -16,7 +16,7 @@ export class InitiateFundingUseCase implements IInitiateFundingUsecase {
   async execute(
     amount: number,
     userId: string
-  ): Promise<PaymentIntailizationResponse> {
+  ): Promise<IntailizatePaymentResponse> {
     const userWallet = await this.walletRepository.findByUserId(userId);
     if (!userWallet)
       throw new ResponseError({

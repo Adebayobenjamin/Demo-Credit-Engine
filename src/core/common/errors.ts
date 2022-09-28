@@ -6,5 +6,6 @@ export const Errors = {
   RECIEVER_WALLET_NOT_FOUND: "Reciever Wallet Not FOund",
   INSUFFICIENT_FUNDS: "Insufficient Funds",
   VALIDATION_ERROR: "Validation Error",
-  INVALID_CREDENTIALS: "Invalid Credentials"
+  INVALID_CREDENTIALS: "Invalid Credentials",
+  USER_NOT_FOUND: "User not found"
 };

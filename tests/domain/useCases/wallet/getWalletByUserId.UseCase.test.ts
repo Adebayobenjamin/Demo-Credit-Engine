@@ -5,11 +5,11 @@ import {
 } from "../../../../src/domain/interfaces/repositories/wallet.repository";
 import { IGetWalletByUserIdUseCase } from "../../../../src/domain/interfaces/useCases/wallet/getWalletByUserId.useCase";
 import { GetWalletByUserIdUseCase } from "../../../../src/domain/useCases/wallet/getWalletByUserId.useCase";
-import { PaymentIntailizationResponse } from "../../../../src/domain/interfaces/useCases/wallet/initiateFunding.useCase";
 import * as uuid from "uuid";
 import { Chance } from "chance";
 import { User } from "../../../../src/domain/entities/user.entity";
 import { Errors } from "../../../../src/core/common/errors";
+import { IntailizatePaymentResponse } from "../../../../src/data/interfaces/dataSources/paymentGateway/paymentGateway";
 const chance = new Chance();
 
 describe("GetWalletByUserId UseCase", () => {
@@ -32,7 +32,7 @@ describe("GetWalletByUserId UseCase", () => {
     initiateFunding(
       amount: number,
       wallet: Wallet
-    ): Promise<PaymentIntailizationResponse> {
+    ): Promise<IntailizatePaymentResponse> {
       throw new Error("Method not implemented.");
     }
   }
@@ -57,7 +57,7 @@ describe("GetWalletByUserId UseCase", () => {
     id: uuid.v4(),
     accountNo: "000000000",
     balance: 1000,
-    user: tUser,
+    userId: tUser.id as string,
   };
   const tUserId = uuid.v4();
 

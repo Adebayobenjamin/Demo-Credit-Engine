@@ -7,11 +7,11 @@ import { InitiateFundingUseCase } from "../../../../src/domain/useCases/wallet/i
 import * as uuid from "uuid";
 import { Chance } from "chance";
 import {
-  IInitiateFundingUsecase,
-  PaymentIntailizationResponse,
+  IInitiateFundingUseCase,
 } from "../../../../src/domain/interfaces/useCases/wallet/initiateFunding.useCase";
 import { User } from "../../../../src/domain/entities/user.entity";
 import { Errors } from "../../../../src/core/common/errors";
+import { IntailizatePaymentResponse } from "../../../../src/data/interfaces/dataSources/paymentGateway/paymentGateway";
 const chance = new Chance();
 
 describe("InitiateFunding UseCase", () => {
@@ -22,7 +22,7 @@ describe("InitiateFunding UseCase", () => {
     initiateFunding(
       amount: number,
       wallet: Wallet
-    ): Promise<PaymentIntailizationResponse> {
+    ): Promise<IntailizatePaymentResponse> {
       throw new Error("Method not implemented.");
     }
     createWallet(wallet: Wallet): Promise<Wallet> {
@@ -39,7 +39,7 @@ describe("InitiateFunding UseCase", () => {
     }
   }
   let mockWalletRepository: IWalletRepository;
-  let initiateFundingUseCase: IInitiateFundingUsecase;
+  let initiateFundingUseCase: IInitiateFundingUseCase;
   beforeEach(() => {
     jest.clearAllMocks();
     mockWalletRepository = new MockWalletRepository();
@@ -64,7 +64,7 @@ describe("InitiateFunding UseCase", () => {
       amount: 10,
       userId: uuid.v4(),
     };
-    const tPaymentInitializationResponse: PaymentIntailizationResponse = {
+    const tPaymentInitializationResponse: IntailizatePaymentResponse = {
       status: true,
       paymentUrl: chance.url(),
       paymentCode: chance.guid({ version: 4 }),
@@ -96,7 +96,7 @@ describe("InitiateFunding UseCase", () => {
         amount: 10,
         userId: uuid.v4(),
       };
-      const tPaymentInitializationResponse: PaymentIntailizationResponse = {
+      const tPaymentInitializationResponse: IntailizatePaymentResponse = {
         status: true,
         paymentUrl: chance.url(),
         paymentCode: chance.guid({ version: 4 }),

@@ -5,7 +5,7 @@ import { Chance } from "chance";
 const chance = new Chance();
 import * as uuid from "uuid";
 import { CryptBox } from "../../../../src/core/utils/cryptBox";
-import { ILoginUsecase } from "../../../../src/domain/interfaces/useCases/user/login.useCase";
+import { ILoginUseCase } from "../../../../src/domain/interfaces/useCases/user/login.useCase";
 import { Errors } from "../../../../src/core/common/errors";
 
 describe("Login UseCase", () => {
@@ -25,7 +25,7 @@ describe("Login UseCase", () => {
   }
 
   let mockUserRepository: IUserRepository;
-  let loginUseCase: ILoginUsecase;
+  let loginUseCase: ILoginUseCase;
   beforeEach(() => {
     jest.clearAllMocks();
     mockUserRepository = new MockUserRepository();

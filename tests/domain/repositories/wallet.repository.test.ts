@@ -2,11 +2,10 @@ import { IWalletDataSource } from "../../../src/data/interfaces/dataSources/wall
 import { Wallet } from "../../../src/domain/entities/wallet.entity";
 import { IWalletRepository } from "../../../src/domain/interfaces/repositories/wallet.repository";
 import { WalletRepository } from "../../../src/domain/repositories/wallet.repository";
-import { IPaymentGateway } from "../../../src/data/interfaces/paymentGateway/paymentGateway";
+import { IntailizatePaymentResponse, IPaymentGateway } from "../../../src/data/interfaces/dataSources/paymentGateway/paymentGateway";
 import { User } from "../../../src/domain/entities/user.entity";
 import { Chance } from "chance";
 import * as uuid from "uuid";
-import { PaymentIntailizationResponse } from "../../../src/domain/interfaces/useCases/wallet/initiateFunding.useCase";
 const chance = new Chance();
 describe("Wallet Repository", () => {
   class MockWalletDataSource implements IWalletDataSource {
@@ -170,7 +169,7 @@ describe("Wallet Repository", () => {
   describe("InitiateFunding", () => {
     test("should initiate payment with paymentGateway", async () => {
       // arrange
-      const tPaymentInitializationResponse: PaymentIntailizationResponse = {
+      const tPaymentInitializationResponse: IntailizatePaymentResponse = {
         status: true,
         paymentUrl: chance.url(),
         paymentCode: chance.guid({ version: 4 }),

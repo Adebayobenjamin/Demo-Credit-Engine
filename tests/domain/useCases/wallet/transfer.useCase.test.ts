@@ -4,9 +4,9 @@ import { TransferUseCase } from "../../../../src/domain/useCases/wallet/transfer
 import { Chance } from "chance";
 import * as uuid from "uuid";
 import { User } from "../../../../src/domain/entities/user.entity";
-import { ITransferUsecase } from "../../../../src/domain/interfaces/useCases/wallet/transfer.useCase";
-import { PaymentIntailizationResponse } from "../../../../src/domain/interfaces/useCases/wallet/initiateFunding.useCase";
+import { ITransferUseCase } from "../../../../src/domain/interfaces/useCases/wallet/transfer.useCase";
 import { Errors } from "../../../../src/core/common/errors";
+import { IntailizatePaymentResponse } from "../../../../src/data/interfaces/dataSources/paymentGateway/paymentGateway";
 const chance = new Chance();
 
 describe("Transfer UseCase ", () => {
@@ -17,7 +17,7 @@ describe("Transfer UseCase ", () => {
     initiateFunding(
       amount: number,
       wallet: Wallet
-    ): Promise<PaymentIntailizationResponse> {
+    ): Promise<IntailizatePaymentResponse> {
       throw new Error("Method not implemented.");
     }
     findByUserId(userId: string): Promise<Wallet> {
@@ -34,7 +34,7 @@ describe("Transfer UseCase ", () => {
     }
   }
   let mockWalletRepository: IWalletRepository;
-  let transferUseCase: ITransferUsecase;
+  let transferUseCase: ITransferUseCase;
   beforeEach(() => {
     jest.clearAllMocks;
     mockWalletRepository = new MockWalletRepository();

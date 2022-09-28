@@ -12,16 +12,13 @@ const chance = new Chance();
 import * as uuid from "uuid";
 describe("Transaction Repository", () => {
   class MockTransactionDataSource implements ITransactionDataSource {
-    findOne(query: {}): Promise<Transaction | null> {
+    findAllByUserId(query: {}): Promise<Transaction[]> {
       throw new Error("Method not implemented.");
     }
-    findAll(query: {}): Promise<Transaction[]> {
-      throw new Error("Method not implemented.");
-    }
-    create(data: Transaction): Promise <Transaction>{
-      throw new Error("Method not implemented.");
-    }
-    update(data: Transaction): Promise<Transaction> {
+    // findOne(query: {}): Promise<Transaction | null> {
+    //   throw new Error("Method not implemented.");
+    // }
+    create(data: Transaction): Promise<Transaction> {
       throw new Error("Method not implemented.");
     }
   }
@@ -31,7 +28,9 @@ describe("Transaction Repository", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockTransactionDataSource = new MockTransactionDataSource();
-    transactionRepository = new TransactionRepository(mockTransactionDataSource);
+    transactionRepository = new TransactionRepository(
+      mockTransactionDataSource
+    );
   });
 
   let tUser: User = {
@@ -49,10 +48,9 @@ describe("Transaction Repository", () => {
   const tPayload: Transaction = {
     amount: chance.natural(),
     transactionType: TransactionType.DEPOSIT,
-    reciever: tUser,
+    reciever: tUserWallet,
     paymentGateway: "paystack",
     currency: "NGN",
-    wallet: tUserWallet,
   };
   const tTransaction: Transaction = {
     id: uuid.v4(),
@@ -76,16 +74,16 @@ describe("Transaction Repository", () => {
   describe("FindByUserId", () => {
     test("should find all transactions by userId", async () => {
       // arrange
-      let tUserId = uuid.v4()
+      let tUserId = uuid.v4();
       jest
-        .spyOn(mockTransactionDataSource, "findAll")
+        .spyOn(mockTransactionDataSource, "findAllByUserId")
         .mockImplementation(() => Promise.resolve([tTransaction]));
       // act
       const result = await transactionRepository.findAllByUserId(tUserId);
       //assert
       expect(result).toBeDefined();
       expect(result).toStrictEqual([tTransaction]);
-      expect(mockTransactionDataSource.findAll).toBeCalledTimes(1);
+      expect(mockTransactionDataSource.findAllByUserId).toBeCalledTimes(1);
     });
   });
 });

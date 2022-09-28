@@ -4,6 +4,6 @@ import { User } from "../../../entities/user.entity";
  * 
  * This specifies what the login usecase can do
  */
-export interface ILoginUsecase{
+export interface ILoginUseCase{
     execute(email: string, password: string):Promise<User>
 }

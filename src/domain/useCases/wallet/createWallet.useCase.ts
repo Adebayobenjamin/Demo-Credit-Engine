@@ -2,9 +2,9 @@ import { Errors } from "../../../core/common/errors";
 import { ResponseError, ValidationError } from "../../../core/common/Response";
 import { Wallet } from "../../entities/wallet.entity";
 import { IWalletRepository } from "../../interfaces/repositories/wallet.repository";
-import { ICreateWalletUsecase } from "../../interfaces/useCases/wallet/createWallet.useCase";
+import { ICreateWalletUseCase } from "../../interfaces/useCases/wallet/createWallet.useCase";
 
-export class CreateWalletUseCase implements ICreateWalletUsecase {
+export class CreateWalletUseCase implements ICreateWalletUseCase {
   walletRepository: IWalletRepository;
   constructor(walletRepository: IWalletRepository) {
     this.walletRepository = walletRepository;
@@ -26,7 +26,7 @@ export class CreateWalletUseCase implements ICreateWalletUsecase {
     // const userExists =
     // check is user already has wallet
     const isExistingWallet =
-      (await this.walletRepository.findByUserId(wallet.user.id)) != null;
+      (await this.walletRepository.findByUserId(wallet.userId)) != null;
     if (isExistingWallet)
       returnable.push(
         new ValidationError({

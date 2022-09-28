@@ -22,12 +22,12 @@ describe("GetTransactionsByUserId UseCase", () => {
   }
 
   let mockTransactionRepository: ITransactionRepository;
-  let getTransactionsByUserIdUsecase: IGetTransactionsByUserIdUseCase;
+  let getTransactionsByUserIdUseCase: IGetTransactionsByUserIdUseCase;
 
   beforeEach(() => {
     jest.clearAllMocks();
     mockTransactionRepository = new MockTransactionRepository();
-    getTransactionsByUserIdUsecase = new GetTransactionsByUserIdUseCase(
+    getTransactionsByUserIdUseCase = new GetTransactionsByUserIdUseCase(
       mockTransactionRepository
     );
   });
@@ -65,7 +65,7 @@ describe("GetTransactionsByUserId UseCase", () => {
       .spyOn(mockTransactionRepository, "findAllByUserId")
       .mockImplementation(() => Promise.resolve(tTransactions));
     // act
-    const result = await getTransactionsByUserIdUsecase.execute(tUser.id);
+    const result = await getTransactionsByUserIdUseCase.execute(tUser.id);
     // assert
     expect(result).toBeDefined();
     expect(result).toStrictEqual(tTransactions);
@@ -78,7 +78,7 @@ describe("GetTransactionsByUserId UseCase", () => {
       .spyOn(mockTransactionRepository, "findAllByUserId")
       .mockImplementation(() => Promise.resolve([]));
     // act
-    const result = await getTransactionsByUserIdUsecase.execute(tUser.id);
+    const result = await getTransactionsByUserIdUseCase.execute(tUser.id);
     // assert
     expect(result).toBeDefined();
     expect(result).toStrictEqual([]);

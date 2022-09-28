@@ -3,8 +3,8 @@ import { ResponseError } from "../../../core/common/Response";
 import { User } from "../../entities/user.entity";
 import { Wallet } from "../../entities/wallet.entity";
 import { IWalletRepository } from "../../interfaces/repositories/wallet.repository";
-import { ITransferUsecase } from "../../interfaces/useCases/wallet/transfer.useCase";
-export class TransferUseCase implements ITransferUsecase {
+import { ITransferUseCase } from "../../interfaces/useCases/wallet/transfer.useCase";
+export class TransferUseCase implements ITransferUseCase {
   walletRepository: IWalletRepository;
   constructor(walletRepository: IWalletRepository) {
     this.walletRepository = walletRepository;

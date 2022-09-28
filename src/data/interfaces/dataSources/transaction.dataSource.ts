@@ -6,9 +6,9 @@ import { Transaction } from "../../../domain/entities/transaction.entity";
  * This specifies what the data source can do
  */
  export interface ITransactionDataSource {
-    findOne(query: {}): Promise<Transaction | null>;
-    findAll(query: {}): Promise<Transaction[]>;
+    // findOne(query: {}): Promise<Transaction | null>;
+    findAllByUserId(userId: string): Promise<Transaction[]>;
     create(data: Transaction): Promise<Transaction>;
-    update(data: Transaction): Promise<Transaction>;
+
   }
   

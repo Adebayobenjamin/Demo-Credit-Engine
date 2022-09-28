@@ -6,13 +6,11 @@ import {
 import { WithdrawUseCase } from "../../../../src/domain/useCases/wallet/withdraw.useCase";
 import * as uuid from "uuid";
 import { Chance } from "chance";
-import {
-  PaymentIntailizationResponse,
-} from "../../../../src/domain/interfaces/useCases/wallet/initiateFunding.useCase";
 import { User } from "../../../../src/domain/entities/user.entity";
-import { IFundWalletUsecase } from "../../../../src/domain/interfaces/useCases/wallet/fundWallet.useCase";
+import { IFundWalletUseCase } from "../../../../src/domain/interfaces/useCases/wallet/fundWallet.useCase";
 import { Errors } from "../../../../src/core/common/errors";
-import { IWithdrawUsecase } from "../../../../src/domain/interfaces/useCases/wallet/withdraw.useCase";
+import { IWithdrawUseCase } from "../../../../src/domain/interfaces/useCases/wallet/withdraw.useCase";
+import { IntailizatePaymentResponse } from "../../../../src/data/interfaces/dataSources/paymentGateway/paymentGateway";
 const chance = new Chance();
 
 describe("Withdraw UseCase", () => {
@@ -23,7 +21,7 @@ describe("Withdraw UseCase", () => {
     initiateFunding(
       amount: number,
       wallet: Wallet
-    ): Promise<PaymentIntailizationResponse> {
+    ): Promise<IntailizatePaymentResponse> {
       throw new Error("Method not implemented.");
     }
     createWallet(wallet: Wallet): Promise<Wallet> {
@@ -41,7 +39,7 @@ describe("Withdraw UseCase", () => {
   }
 
   let mockWalletRepository: IWalletRepository;
-  let withdrawUseCase: IWithdrawUsecase;
+  let withdrawUseCase: IWithdrawUseCase;
   beforeEach(() => {
     jest.clearAllMocks();
     mockWalletRepository = new MockWalletRepository();

@@ -32,12 +32,13 @@ npm run start
 - [x] DataSource and Payment Gateway Contract
 - [x] UseCases Test and Implementation
 - [x] Repositories Test and Implementation
-- [] Datasource test and Implementation
-- [] Payment Gateway Test and Implementation
-- [] Router Test and Implementation
-- [] Bootstrap Application
-- [] Add Extra validations where neccessary
-- [] Re-run all tests and fix tests
+- [x] Datasource test and Implementation
+- [x] Payment Gateway  and Implementation
+- [x] Router Implementation
+- [x] Bootstrap Application
+- [x] Add Extra validations where neccessary
+- [x] Re-run all tests and fix tests
+- [] Setup DI
 
 
 

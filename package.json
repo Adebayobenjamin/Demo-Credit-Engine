@@ -4,8 +4,8 @@
   "description": "A Wallet Service with Nodejs/Typescript",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./src/main.ts",
-    "start": "node ./dist/main.js",
+    "dev": "NODE_ENV=development nodemon ./src/main.ts",
+    "start": "NODE_ENV=production node ./dist/main.js",
     "build": "tsc -p .",
     "test": "jest --watchAll --collectCoverage"
   },

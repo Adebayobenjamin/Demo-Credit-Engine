@@ -1,10 +1,12 @@
 import { NextFunction, Request, Response } from "express";
+import { autoInjectable } from "tsyringe";
 import { ResponseData } from "../../core/common/Response";
 import { jwt } from "../../core/utils/jwt";
 import { ILoginUseCase } from "../../domain/interfaces/useCases/user/login.useCase";
 import { IRegisterUseCase } from "../../domain/interfaces/useCases/user/register.useCase";
 import { ICreateWalletUseCase } from "../../domain/interfaces/useCases/wallet/createWallet.useCase";
 
+@autoInjectable()
 export class UserController {
   loginUseCase: ILoginUseCase;
   registerUseCase: IRegisterUseCase;

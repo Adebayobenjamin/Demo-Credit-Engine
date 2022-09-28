@@ -1,3 +1,4 @@
+import { autoInjectable } from "tsyringe";
 import { Errors } from "../../../core/common/errors";
 import { ResponseError } from "../../../core/common/Response";
 import { CryptBox } from "../../../core/utils/cryptBox";
@@ -5,6 +6,7 @@ import { User } from "../../entities/user.entity";
 import { IUserRepository } from "../../interfaces/repositories/user.repository";
 import { ILoginUseCase } from "../../interfaces/useCases/user/login.useCase";
 
+@autoInjectable()
 export class LoginUseCase implements ILoginUseCase {
   userRepository: IUserRepository;
   constructor(userRepository: IUserRepository) {

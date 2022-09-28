@@ -259,5 +259,6 @@ describe("Wallet Repository", () => {
     expect(result).toStrictEqual(tVerificationResponse);
     expect(mockPaymentGateway.verifyAccountNumber).toBeCalledTimes(1);
   });
+  
 });
-// TODO: Test initaiteWithdrawal, getBanks, verifyAccountNumber
+

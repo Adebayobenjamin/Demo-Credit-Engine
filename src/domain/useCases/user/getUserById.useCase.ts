@@ -1,9 +1,10 @@
+import { autoInjectable } from "tsyringe";
 import { Errors } from "../../../core/common/errors";
 import { ResponseError } from "../../../core/common/Response";
 import { User } from "../../entities/user.entity";
 import { IUserRepository } from "../../interfaces/repositories/user.repository";
 import { IGetUserByIdUseCase } from "../../interfaces/useCases/user/getUserById.useCase";
-
+@autoInjectable()
 export class GetUserByIdUseCase implements IGetUserByIdUseCase {
   userRepository: IUserRepository;
   constructor(userRepository: IUserRepository) {

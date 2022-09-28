@@ -14,6 +14,9 @@ import crypto from "crypto";
 import { IGetBanksUseCase } from "../../domain/interfaces/useCases/wallet/getBanks.useCase";
 import { IVerifyAccountNumberUseCase } from "../../domain/interfaces/useCases/wallet/verifyAccountNumber.useCase";
 import { IInitiateWithdrawalUseCase } from "../../domain/interfaces/useCases/wallet/initiateWithdrawal.useCase";
+import { autoInjectable } from "tsyringe";
+
+@autoInjectable()
 export class WalletController {
   fundWalletUseCase: IFundWalletUseCase;
   getWalletByUserIdUseCase: IGetWalletByUserIdUseCase;

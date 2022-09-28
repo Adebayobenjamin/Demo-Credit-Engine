@@ -1,7 +1,9 @@
+import { autoInjectable } from "tsyringe";
 import { Transaction } from "../../entities/transaction.entity";
 import { ITransactionRepository } from "../../interfaces/repositories/transaction.repository";
 import { ICreateTransactionUseCase } from "../../interfaces/useCases/transaction/createTransaction.useCase";
 
+@autoInjectable()
 export class CreateTransactionUseCase implements ICreateTransactionUseCase {
   transactionRepository: ITransactionRepository;
   constructor(transactionRepository: ITransactionRepository) {

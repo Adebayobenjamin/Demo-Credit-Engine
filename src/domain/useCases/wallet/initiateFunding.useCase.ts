@@ -1,3 +1,4 @@
+import { autoInjectable } from "tsyringe";
 import { Errors } from "../../../core/common/errors";
 import { ResponseError } from "../../../core/common/Response";
 import { IntailizatePaymentResponse } from "../../../data/interfaces/dataSources/paymentGateway/paymentGateway";
@@ -7,6 +8,7 @@ import {
   IInitiateFundingUseCase,
 } from "../../interfaces/useCases/wallet/initiateFunding.useCase";
 
+@autoInjectable()
 export class InitiateFundingUseCase implements IInitiateFundingUseCase {
   walletRepository: IWalletRepository;
   constructor(walletRepository: IWalletRepository) {

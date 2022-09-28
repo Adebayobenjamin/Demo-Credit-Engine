@@ -1,7 +1,9 @@
+import { autoInjectable } from "tsyringe";
 import { Wallet } from "../../../domain/entities/wallet.entity";
 import { IWalletDatabase } from "../../interfaces/dataSources/database";
 import { IWalletDataSource } from "../../interfaces/dataSources/wallet.dataSource";
 
+@autoInjectable()
 export class WalletDataSource implements IWalletDataSource {
   database: IWalletDatabase;
   constructor(database: IWalletDatabase) {

@@ -10,7 +10,9 @@
     "sourceMap": false /* Specify an output folder for all emitted files. */,
     /* Completeness */
     "skipLibCheck": true /* Skip type checking of declaration files. */,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
     /* Skip type checking all .d.ts files. */
   },
   "include": ["src/**/*"],

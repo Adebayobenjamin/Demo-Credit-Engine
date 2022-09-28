@@ -17,6 +17,13 @@ services:
     #   - db
     environment:
       - PORT=9898
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=democredit
+      - DB_PASSWORD=rtyyxksl
+      - DB_NAME=democredit
+      - JWT_SECRET=kqfjifjfmfkmffmfmomf2mmof2o
+      - PAYSTACK_PRIVATE_KEY=sk_test_d90eb2d7f307f3f67bb59e4c3dc334d003bb8d87
 
     ports:
       - 9898:9898
